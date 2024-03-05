@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "tienda-control-gastos",
-    "slug": "tienda-control-gastos",
+    "name": "MiTiendita",
+    "slug": "MiTiendita",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icons1.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/background2.jpeg",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -19,12 +19,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icons1.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.wlady3190.MiTiendita"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/icons1.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "3347297a-2614-4f15-9e50-d3f01010bb59"
+      }
     }
   }
 }

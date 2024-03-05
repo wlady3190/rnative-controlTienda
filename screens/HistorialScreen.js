@@ -1,13 +1,12 @@
-import { View, Text, Button, StyleSheet, TouchableOpacity, ScrollView, FlatList } from 'react-native'
+import { View, Text, Button, StyleSheet, TouchableOpacity, ScrollView, FlatList, ImageBackground } from 'react-native'
 import React, { useEffect, useState } from 'react'
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import * as Animatable from 'react-native-animatable'
+
 
 const HistorialScreen = ({ db }) => {
 
-
   const [mostrarVentas, setMostrarVentas] = useState([])
-
-
-
   const imprimirVentas = () => {
 
     db.transaction(tx => {
@@ -17,7 +16,6 @@ const HistorialScreen = ({ db }) => {
       );
     });
   }
-
 
   const borrarVenta = (id) => {
     db.transaction(tx => {
@@ -31,55 +29,49 @@ const HistorialScreen = ({ db }) => {
       );
     });
   
-    // Actualizar el estado fuera de la transacción
     let existingNames = mostrarVentas.filter(venta => venta.id !== id);
     setMostrarVentas(existingNames);
   };
   
 
    useEffect(() => {
-
     imprimirVentas()
-
    }, [])
-  const ventasInvertidas = mostrarVentas.slice().reverse();
 
+  const ventasInvertidas = mostrarVentas.slice().reverse();
 
   return (
 
-    <View style={styles.container}>
+    <Animatable.View animation='fadeInDownBig' duration={1500} style={styles.container}>
+
+
+    < ImageBackground style={styles.image} source={require('../assets/background2.jpeg')}resizeMode='cover'  >
       <ScrollView>
-
-
-        {/* Lista de tarjetas */}
         {ventasInvertidas.map((venta, index) => (
           <TouchableOpacity
             key={index}
             style={styles.card}
-            onPress={() => console.log("ID de transacción:", venta.id)}>
-            <Text style={styles.cardTitle}>ID de Transacción: {venta.id}</Text>
+            onPress={() => console.log("Id:", venta.id)}>
+            <Text style={styles.cardTitle}>Transacción: {venta.id}</Text>
             <Text style={styles.cardText}>Fecha: {venta.fecha}</Text>
-            <Text style={styles.cardText}>Costos: {venta.costos}</Text>
-            <Text style={styles.cardText}>Gastos: {venta.gastos}</Text>
-            <Text style={styles.cardText}>Utilidad Bruta: {venta.utilidadBruta}</Text>
-            <Text style={styles.cardText}>Utilidad Operativa: {venta.utilidadOperativa}</Text>
-            <Text style={styles.cardText}>Margen Bruto: {venta.margenBruto}</Text>
-            <Text style={styles.cardText}>Margen Operativo: {venta.margenOperativo}</Text>
-            <Text style={styles.cardText}>Impacto Gasto: {venta.impactoGasto}</Text>
+            <Text style={styles.cardText}>Ingresos: $ {venta.ventas}</Text>
+            <Text style={styles.cardText}>Costos: $ {venta.costos}</Text>
+            <Text style={styles.cardText}>Gastos: $ {venta.gastos}</Text>
+            <Text style={styles.cardText}>Utilidad Bruta: $ {venta.utilidadBruta}</Text>
+            <Text style={styles.cardText}>Utilidad Operativa: $ {venta.utilidadOperativa}</Text>
+            <Text style={styles.cardText}>Margen Bruto: $ {venta.margenBruto}</Text>
+            <Text style={styles.cardText}>Margen Operativo: $ {venta.margenOperativo}</Text>
+            <Text style={styles.cardText}>Impacto Gasto: $ {venta.impactoGasto}</Text>
 
 
             <TouchableOpacity style={styles.button} onPress={()=>borrarVenta(venta.id)}>
-              <Text style={styles.buttonText}>Borrar</Text>
+            <MaterialCommunityIcons name="delete" size={24} color="white" />
             </TouchableOpacity>
           </TouchableOpacity>
         ))}
-
-          {/* <TouchableOpacity style={styles.button} onPress={imprimirVentas}>
-          <Text style={styles.buttonText}>Ver</Text>
-        </TouchableOpacity>   */}
       </ScrollView>
-    </View>
-
+    </ImageBackground>
+    </Animatable.View>
   );
 }
 
@@ -89,7 +81,7 @@ export default HistorialScreen
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+
   },
   card: {
     backgroundColor: '#fff',
@@ -115,10 +107,10 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   button: {
-    width: '80%',
+    width: '25%',
     height: 40,
-    backgroundColor: 'blue',
-    borderRadius: 5,
+    backgroundColor: '#a10d0b',
+    borderRadius: 30,
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 10,
@@ -126,5 +118,12 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 16,
+  },
+  image: {
+    flex: 1,
+    justifyContent: 'center',
+    padding:30,
+    marginTop:6
+
   },
 });

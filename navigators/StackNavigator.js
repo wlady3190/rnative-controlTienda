@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import HistorialScreen from '../screens/HistorialScreen';
-import TestScreen from '../screens/TestScreen';
+import HomeScreen from '../screens/HomeScreen';
 import * as SQLite from 'expo-sqlite';
 
 
@@ -31,11 +31,11 @@ function MyStack() {
 
 
     return (
-        <Stack.Navigator initialRouteName='Test' >
-            <Stack.Screen name="Test" screenOptions={{headerShown:false}} >
-                {() => <TestScreen db={db} />}
+        <Stack.Navigator initialRouteName='Home' screenOptions={{ headerShown: false }} >
+            <Stack.Screen name="Home"  >
+                {() => <HomeScreen db={db} />}
             </Stack.Screen>
-            <Stack.Screen name="Historial">
+            <Stack.Screen name="Historial" screenOptions={{ headerShown: true }}>
                 {() => <HistorialScreen db={db} />}
             </Stack.Screen>
         </Stack.Navigator>
